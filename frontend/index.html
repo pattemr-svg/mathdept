@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MDST | Math Department Service Team</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Main Styles -->
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body>
+
+    <header>
+
+        <div class="logo-area">
+
+            <img src="../assets/logos/atech-logo.png"
+                 alt="A-Tech Logo"
+                 class="logo">
+
+            <div>
+
+                <h1>Math Department Service Team</h1>
+
+                <p class="tagline">
+                    Serving Our School • Building Our Community
+                </p>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <main>
+
+        <section class="hero">
+
+            <h2>
+                Welcome to MDST
+            </h2>
+
+            <p>
+                Join your fellow Mavericks in helping keep our campus clean,
+                organized, and something we can all be proud of.
+            </p>
+
+            <button id="joinButton">
+                🚀 Join the Team
+            </button>
+
+        </section>
+
+
+        <section class="stats">
+
+            <div class="card">
+
+                <h3>🗑 Cleanup Runs</h3>
+
+                <p id="cleanupRuns">0</p>
+
+            </div>
+
+            <div class="card">
+
+                <h3>👥 Volunteers</h3>
+
+                <p id="volunteers">0</p>
+
+            </div>
+
+            <div class="card">
+
+                <h3>⭐ Badges</h3>
+
+                <p id="badges">0</p>
+
+            </div>
+
+            <div class="card">
+
+                <h3>⏱ Avg Time</h3>
+
+                <p id="averageTime">--:--</p>
+
+            </div>
+
+        </section>
+
+
+        <section class="calendar">
+
+    <h2>Current Week</h2>
+
+    <div id="currentWeek" class="week-grid">
+
+        <!-- JavaScript builds the cards here -->
+
+    </div>
+
+    <h2 class="next-week-title">Next Week</h2>
+
+    <div id="nextWeek" class="week-grid">
+
+        <!-- JavaScript builds the cards here -->
+
+    </div>
+
+</section>
+
+
+
+<template id="dayCardTemplate">
+
+    <div class="day-card">
+
+        <div class="day-header">
+
+            <h3 class="day-name"></h3>
+
+            <span class="capacity-badge"></span>
+
+        </div>
+
+        <div class="teacher">
+
+            👨‍🏫 <span class="teacher-name"></span>
+
+        </div>
+
+        <div class="progress">
+
+            <div class="progress-fill"></div>
+
+        </div>
+
+        <div class="student-list">
+
+        </div>
+
+        <button class="join-team">
+
+            🚀 Join the Team
+
+        </button>
+
+    </div>
+
+</template>
+
+    </main>
+
+
+    <footer>
+
+        MDST v0.1.0
+
+    </footer>
+
+
+<script src="app.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,589 @@
+/* ==========================================
+   MDST - Math Department Service Team
+   Version 0.1
+   ========================================== */
+
+:root{
+
+    --purple:#5b4aa5;
+    --purple-dark:#46398a;
+
+    --teal:#27b3b0;
+
+    --background:#f4f6fb;
+
+    --card:#ffffff;
+
+    --text:#2f3442;
+
+    --shadow:0px 8px 20px rgba(0,0,0,.08);
+
+    --radius:18px;
+
+}
+
+*{
+
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+
+}
+
+body{
+
+    font-family:'Inter',sans-serif;
+
+    background:var(--background);
+
+    color:var(--text);
+
+}
+
+/* ---------------- Header ---------------- */
+
+header{
+
+    background:linear-gradient(135deg,var(--purple),var(--purple-dark));
+
+    color:white;
+
+    padding:30px;
+
+    box-shadow:var(--shadow);
+
+}
+
+.logo-area{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:20px;
+
+}
+
+.logo{
+
+    width:120px;
+
+    height:auto;
+
+}
+
+header h1{
+
+    font-size:2.2rem;
+
+}
+
+.tagline{
+
+    margin-top:6px;
+
+    opacity:.9;
+
+}
+
+/* ---------------- Hero ---------------- */
+
+.hero{
+
+    max-width:1000px;
+
+    margin:40px auto;
+
+    background:white;
+
+    padding:50px;
+
+    border-radius:var(--radius);
+
+    box-shadow:var(--shadow);
+
+    text-align:center;
+
+}
+
+.hero h2{
+
+    color:var(--purple);
+
+    font-size:2.2rem;
+
+    margin-bottom:15px;
+
+}
+
+.hero p{
+
+    font-size:1.15rem;
+
+    line-height:1.7;
+
+}
+
+/* ---------------- Button ---------------- */
+
+button{
+
+    background:var(--teal);
+
+    color:white;
+
+    border:none;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+    font-family:inherit;
+
+}
+
+button:hover{
+
+    transform:translateY(-2px);
+
+    background:#209b98;
+
+}
+
+/* ---------------- Stats ---------------- */
+
+.stats{
+
+    max-width:1100px;
+
+    margin:40px auto;
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+    gap:25px;
+
+}
+
+.card{
+
+    background:var(--card);
+
+    padding:30px;
+
+    border-radius:var(--radius);
+
+    text-align:center;
+
+    box-shadow:var(--shadow);
+
+}
+
+.card h3{
+
+    color:var(--purple);
+
+    margin-bottom:15px;
+
+}
+
+.card p{
+
+    font-size:2.2rem;
+
+    font-weight:700;
+
+}
+
+/* ---------------- Calendar ---------------- */
+
+.calendar{
+
+    max-width:1100px;
+
+    margin:50px auto;
+
+    background:white;
+
+    padding:40px;
+
+    border-radius:var(--radius);
+
+    box-shadow:var(--shadow);
+
+}
+
+.calendar h2{
+
+    color:var(--purple);
+
+    margin-bottom:20px;
+
+}
+
+/* ---------------- Footer ---------------- */
+
+footer{
+
+    margin-top:60px;
+
+    background:var(--purple);
+
+    color:white;
+
+    text-align:center;
+
+    padding:25px;
+
+}
+
+/* ---------------- Responsive ---------------- */
+
+@media(max-width:800px){
+
+.logo-area{
+
+    flex-direction:column;
+
+    text-align:center;
+
+}
+
+header h1{
+
+    font-size:1.7rem;
+
+}
+
+.hero{
+
+    margin:20px;
+
+    padding:30px;
+
+}
+
+.stats{
+
+    margin:20px;
+
+}
+
+.calendar{
+
+    margin:20px;
+
+}
+
+}/* =====================================================
+   CALENDAR
+===================================================== */
+
+.week-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(5,1fr);
+
+    gap:22px;
+
+    margin-bottom:50px;
+
+}
+
+.next-week-title{
+
+    margin-top:40px;
+
+}
+
+.day-card{
+
+    background:white;
+	
+	min-height:360px;
+
+    border-radius:18px;
+
+    box-shadow:0 10px 22px rgba(0,0,0,.08);
+
+    padding:18px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    transition:.25s;
+
+}
+
+.day-card:hover{
+
+    transform:translateY(-5px);
+
+}
+
+.day-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:16px;
+
+}
+
+.day-name{
+
+    color:var(--purple);
+
+    font-size:1.45rem;
+
+    font-weight:700;
+
+}
+
+
+
+.capacity-badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-width: 46px;
+
+    height: 28px;
+
+    padding: 0 10px;
+
+    border-radius: 999px;
+
+    color: #ffffff;
+
+    font-size: .85rem;
+
+    font-weight: 700;
+
+    line-height: 1;
+
+    text-align: center;
+
+    box-sizing: border-box;
+
+    flex-shrink: 0;
+
+}
+
+.teacher{
+
+    font-size:1rem;
+
+    font-weight:700;
+
+    margin-bottom:18px;
+
+    color:#222;
+
+}
+
+.progress{
+
+    height:14px;
+
+    background:#e4e7ef;
+
+    border-radius:24px;
+
+    overflow:hidden;
+
+    margin-bottom:18px;
+
+}
+
+.progress-fill{
+
+    width:60%;
+
+    height:100%;
+	
+	border-radius:24px;
+
+    background:linear-gradient(90deg,#27b3b0,#5b4aa5);
+
+}
+
+.student-list{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:flex-start;
+
+    gap:10px;
+
+    margin-bottom:18px;
+
+    min-height:120px;
+
+}
+
+.student-chip{
+
+    background:#f2f4fa;
+
+    border-radius:30px;
+
+    padding:6px 12px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    font-size:.85rem;
+
+}
+
+.avatar{
+
+    width:28px;
+
+    height:28px;
+
+    border-radius:50%;
+
+    background:#5b4aa5;
+
+    color:white;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:.75rem;
+
+    font-weight:bold;
+
+}
+
+.join-team{
+
+    margin-top:auto;
+
+    width:100%;
+
+    height:48px;
+
+    border-radius:12px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:1rem;
+
+    font-weight:700;
+
+    white-space:nowrap;
+
+    padding:0;
+
+}
+
+.capacity-green,
+.capacity-yellow,
+.capacity-red {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-width: 46px;
+
+    height: 28px;
+
+    padding: 0 10px;
+
+    border-radius: 999px;
+
+    color: #ffffff;
+
+    font-size: .85rem;
+
+    font-weight: 700;
+
+    line-height: 1;
+
+    text-align: center;
+
+    box-sizing: border-box;
+
+    flex-shrink: 0;
+
+}
+
+.capacity-green {
+
+    background: #34a853;
+
+}
+
+.capacity-yellow {
+
+    background: #e5a400;
+
+}
+
+.capacity-red {
+
+    background: #d93025;
+
+}
+
+/* =====================================================
+   RESPONSIVE CALENDAR
+===================================================== */
+
+@media(max-width:1200px){
+
+.week-grid{
+
+    grid-template-columns:repeat(3,1fr);
+
+}
+
+}
+
+@media(max-width:850px){
+
+.week-grid{
+
+    grid-template-columns:repeat(2,1fr);
+
+}
+
+}
+
+@media(max-width:600px){
+
+.week-grid{
+
+    grid-template-columns:1fr;
+
+}
+
+}
