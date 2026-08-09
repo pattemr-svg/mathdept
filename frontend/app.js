@@ -6,6 +6,46 @@ Version 0.2
 ==========================================
 */
 const API_URL = "https://script.google.com/macros/s/AKfycbxdvPcTVo1AxbKQosOza-6PmlKUYBqiUrVY-0c-HdUxziiziPHKqEU1XYp2nTd_2Xn24A/exec";
+async function loadSignups() {
+
+    try {
+
+        const response =
+            await fetch(`${API_URL}?action=signups`);
+
+        const data =
+            await response.json();
+
+        if (!data.success) {
+
+            console.error(
+                "MDST could not load signups:",
+                data.error
+            );
+
+            return [];
+
+        }
+
+        console.log(
+            "MDST signups loaded:",
+            data.signups
+        );
+
+        return data.signups;
+
+    } catch (error) {
+
+        console.error(
+            "MDST could not connect to the signup database:",
+            error
+        );
+
+        return [];
+
+    }
+
+}
 const calendarData = {
 
     currentWeek: [
@@ -216,7 +256,14 @@ else {
 }
 
 
-function initialize(){
+async function initialize() {
+
+    const signups = await loadSignups();
+
+    console.log(
+        "Live signup data:",
+        signups
+    );
 
     buildWeek(
         "currentWeek",
