@@ -265,6 +265,29 @@ async function initialize() {
         signups
     );
 
+    // Add live Google Sheet signups to the appropriate day
+    signups.forEach(signup => {
+
+        const targetWeek =
+            signup.Date === "next"
+                ? calendarData.nextWeek
+                : calendarData.currentWeek;
+
+        const targetDay =
+            targetWeek.find(day =>
+                day.day === signup.Day
+            );
+
+        if (targetDay) {
+
+            targetDay.students.push(
+                signup["Full Name"] || signup.fullName
+            );
+
+        }
+
+    });
+
     buildWeek(
         "currentWeek",
         calendarData.currentWeek
