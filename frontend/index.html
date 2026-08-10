@@ -169,6 +169,134 @@
 
 <script src="app.js"></script>
 
+<!-- =====================================================
+     MDST SIGNUP MODAL
+===================================================== -->
+
+<div id="signupModal" class="signup-modal">
+
+    <div class="signup-modal-content">
+
+        <button
+            type="button"
+            class="signup-close"
+            id="closeSignupModal"
+            aria-label="Close signup form"
+        >
+            ×
+        </button>
+
+        <div class="signup-header">
+
+            <div class="signup-icon">🚀</div>
+
+            <h2>Join the Team!</h2>
+
+            <p>
+                Help the Math Department keep our campus clean.
+            </p>
+
+        </div>
+
+        <form id="signupForm">
+
+            <div class="form-group">
+
+                <label for="signupDay">
+                    Cleanup Day
+                </label>
+
+                <select
+                    id="signupDay"
+                    name="day"
+                    required
+                >
+
+                    <option value="">
+                        Choose a day...
+                    </option>
+
+                    <option value="Monday">
+                        Monday
+                    </option>
+
+                    <option value="Tuesday">
+                        Tuesday
+                    </option>
+
+                    <option value="Wednesday">
+                        Wednesday
+                    </option>
+
+                    <option value="Thursday">
+                        Thursday
+                    </option>
+
+                    <option value="Friday">
+                        Friday
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="signupName">
+                    Full Name
+                </label>
+
+                <input
+                    type="text"
+                    id="signupName"
+                    name="fullName"
+                    placeholder="First and Last Name"
+                    autocomplete="name"
+                    required
+                >
+
+                <small>
+                    Your full name is stored securely for our records.
+                </small>
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="signupEmail">
+                    School Email
+                </label>
+
+                <input
+                    type="email"
+                    id="signupEmail"
+                    name="email"
+                    placeholder="your.name@school.edu"
+                    autocomplete="email"
+                    required
+                >
+
+            </div>
+
+            <div
+                id="signupMessage"
+                class="signup-message"
+                role="alert"
+            ></div>
+
+            <button
+                type="submit"
+                class="submit-signup"
+                id="submitSignup"
+            >
+                🚀 Join the Team
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
 </body>
 
 </html>
