@@ -606,15 +606,17 @@ async function handleSignupSubmit(event) {
 
             body: JSON.stringify({
 
-                fullName: fullName,
+    action: "signup",
 
-                email: email,
+    fullName: fullName,
 
-                date: date,
+    email: email,
 
-                day: day
+    date: date,
 
-            })
+    day: day
+
+})
 
         });
 
