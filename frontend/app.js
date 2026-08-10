@@ -250,39 +250,38 @@ async function initialize() {
         signups
     );
 
-    // Add live Google Sheet signups to the appropriate day
     signups.forEach(signup => {
 
-    if (!signup.Date || !signup.Day) {
-        return;
-    }
+        if (!signup.Date || !signup.Day) {
+            return;
+        }
 
-    const signupDate =
-        String(signup.Date).substring(0, 10);
+        const signupDate =
+            String(signup.Date).substring(0, 10);
 
-    const allDays = [
-        ...calendarData.currentWeek,
-        ...calendarData.nextWeek
-    ];
+        const allDays = [
+            ...calendarData.currentWeek,
+            ...calendarData.nextWeek
+        ];
 
-    const targetDay =
-        allDays.find(day =>
-            day.date === signupDate &&
-            day.day === signup.Day
-        );
+        const targetDay =
+            allDays.find(day =>
+                day.date === signupDate &&
+                day.day === signup.Day
+            );
 
-    if (targetDay) {
+        if (targetDay) {
 
-        const fullName =
-            signup["Full Name"] ||
-            signup.fullName ||
-            "Unknown Student";
+            const fullName =
+                signup["Full Name"] ||
+                signup.fullName ||
+                "Unknown Student";
 
-        targetDay.students.push(fullName);
+            targetDay.students.push(fullName);
 
-    }
+        }
 
-});
+    });
 
     buildWeek(
         "currentWeek",
