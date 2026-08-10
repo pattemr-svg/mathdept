@@ -593,7 +593,7 @@ async function handleSignupSubmit(event) {
 
 
     // -----------------------------
-    // Disable button
+    // Disable button while submitting
     // -----------------------------
 
     submitButton.disabled = true;
@@ -609,30 +609,21 @@ async function handleSignupSubmit(event) {
 
                 method: "POST",
 
-                const response =
-    await fetch(API_URL, {
+                headers: {
+                    "Content-Type": "text/plain;charset=utf-8"
+                },
 
-        method: "POST",
+                body: JSON.stringify({
 
-        headers: {
-            "Content-Type":
-                "application/x-www-form-urlencoded"
-        },
+                    fullName: fullName,
 
-        body:
-            new URLSearchParams({
+                    email: email,
 
-                fullName: fullName,
+                    date: date,
 
-                email: email,
+                    day: day
 
-                date: date,
-
-                day: day
-
-            })
-
-    });
+                })
 
             });
 
@@ -713,7 +704,6 @@ async function handleSignupSubmit(event) {
     }
 
 }
-
 
 // =====================================================
 // MDST - START APPLICATION
