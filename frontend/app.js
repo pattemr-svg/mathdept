@@ -542,8 +542,7 @@ async function handleSignupSubmit(event) {
 
     event.preventDefault();
 
-    const form =
-        event.target;
+    const form = event.target;
 
     const submitButton =
         document.getElementById("submitSignup");
@@ -575,10 +574,6 @@ async function handleSignupSubmit(event) {
             .value;
 
 
-    // -----------------------------
-    // Basic validation
-    // -----------------------------
-
     if (!fullName || !email || !day || !date) {
 
         message.textContent =
@@ -592,10 +587,6 @@ async function handleSignupSubmit(event) {
     }
 
 
-    // -----------------------------
-    // Disable button while submitting
-    // -----------------------------
-
     submitButton.disabled = true;
 
     submitButton.textContent =
@@ -604,37 +595,33 @@ async function handleSignupSubmit(event) {
 
     try {
 
-        const response =
-            await fetch(API_URL, {
+        const response = await fetch(API_URL, {
 
-                method: "POST",
+            method: "POST",
 
-                headers: {
-                    "Content-Type": "text/plain;charset=utf-8"
-                },
+            headers: {
+                "Content-Type":
+                    "text/plain;charset=utf-8"
+            },
 
-                body: JSON.stringify({
+            body: JSON.stringify({
 
-                    fullName: fullName,
+                fullName: fullName,
 
-                    email: email,
+                email: email,
 
-                    date: date,
+                date: date,
 
-                    day: day
+                day: day
 
-                })
+            })
 
-            });
+        });
 
 
         const data =
             await response.json();
 
-
-        // -----------------------------
-        // Backend rejected signup
-        // -----------------------------
 
         if (!data.success) {
 
@@ -650,10 +637,6 @@ async function handleSignupSubmit(event) {
         }
 
 
-        // -----------------------------
-        // Success
-        // -----------------------------
-
         message.textContent =
             "🎉 You're on the team!";
 
@@ -664,20 +647,13 @@ async function handleSignupSubmit(event) {
         form.reset();
 
 
-        // -----------------------------
-        // Reload calendar
-        // -----------------------------
+        setTimeout(() => {
 
-        setTimeout(
-            () => {
+            closeSignupModal();
 
-                closeSignupModal();
+            window.location.reload();
 
-                window.location.reload();
-
-            },
-            1000
-        );
+        }, 1000);
 
 
     } catch (error) {
