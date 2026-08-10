@@ -51,53 +51,43 @@ const calendarData = {
     currentWeek: [
 
         {
+            date: "2026-08-10",
             day: "Monday",
             teacher: "Mr. Patterson",
             capacity: 5,
-            students: [
-                "Sarah P.",
-                "James R.",
-                "Emily T."
-            ]
+            students: []
         },
 
         {
+            date: "2026-08-11",
             day: "Tuesday",
             teacher: "Mrs. Smith",
             capacity: 5,
-            students: [
-                "Olivia B.",
-                "Tyler C."
-            ]
+            students: []
         },
 
         {
+            date: "2026-08-12",
             day: "Wednesday",
             teacher: "Mr. Johnson",
             capacity: 3,
-            students: [
-                "Ava L."
-            ]
+            students: []
         },
 
         {
+            date: "2026-08-13",
             day: "Thursday",
             teacher: "Mrs. Brown",
             capacity: 5,
-            students: [
-            ]
+            students: []
         },
 
         {
+            date: "2026-08-14",
             day: "Friday",
             teacher: "Mr. Davis",
             capacity: 5,
-            students: [
-                "Mason R.",
-                "Emma H.",
-                "Luke T.",
-                "Grace W."
-            ]
+            students: []
         }
 
     ],
@@ -105,48 +95,43 @@ const calendarData = {
     nextWeek: [
 
         {
+            date: "2026-08-17",
             day: "Monday",
             teacher: "Mr. Patterson",
             capacity: 5,
-            students: [
-            ]
+            students: []
         },
 
         {
+            date: "2026-08-18",
             day: "Tuesday",
             teacher: "Mrs. Smith",
             capacity: 5,
-            students: [
-                "Sarah P."
-            ]
+            students: []
         },
 
         {
+            date: "2026-08-19",
             day: "Wednesday",
             teacher: "Mr. Johnson",
             capacity: 3,
-            students: [
-                "Noah K.",
-                "James R."
-            ]
+            students: []
         },
 
         {
+            date: "2026-08-20",
             day: "Thursday",
             teacher: "Mrs. Brown",
             capacity: 5,
-            students: [
-                "Olivia B.",
-                "Emma H."
-            ]
+            students: []
         },
 
         {
+            date: "2026-08-21",
             day: "Friday",
             teacher: "Mr. Davis",
             capacity: 5,
-            students: [
-            ]
+            students: []
         }
 
     ]
@@ -268,25 +253,36 @@ async function initialize() {
     // Add live Google Sheet signups to the appropriate day
     signups.forEach(signup => {
 
-        const targetWeek =
-            signup.Date === "next"
-                ? calendarData.nextWeek
-                : calendarData.currentWeek;
+    if (!signup.Date || !signup.Day) {
+        return;
+    }
 
-        const targetDay =
-            targetWeek.find(day =>
-                day.day === signup.Day
-            );
+    const signupDate =
+        String(signup.Date).substring(0, 10);
 
-        if (targetDay) {
+    const allDays = [
+        ...calendarData.currentWeek,
+        ...calendarData.nextWeek
+    ];
 
-            targetDay.students.push(
-                signup["Full Name"] || signup.fullName
-            );
+    const targetDay =
+        allDays.find(day =>
+            day.date === signupDate &&
+            day.day === signup.Day
+        );
 
-        }
+    if (targetDay) {
 
-    });
+        const fullName =
+            signup["Full Name"] ||
+            signup.fullName ||
+            "Unknown Student";
+
+        targetDay.students.push(fullName);
+
+    }
+
+});
 
     buildWeek(
         "currentWeek",
