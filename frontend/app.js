@@ -233,7 +233,16 @@ else {
             );
 
         });
+const joinButton =
+    template.querySelector(".join-team");
 
+joinButton.dataset.date = day.date;
+joinButton.dataset.day = day.day;
+
+joinButton.dataset.week =
+    containerId === "currentWeek"
+        ? "current"
+        : "next";
         container.appendChild(template);
 
     });
@@ -273,11 +282,28 @@ async function initialize() {
         if (targetDay) {
 
             const fullName =
-                signup["Full Name"] ||
-                signup.fullName ||
-                "Unknown Student";
+    signup["Full Name"] ||
+    signup.fullName ||
+    "Unknown Student";
 
-            targetDay.students.push(fullName);
+const nameParts =
+    fullName.trim().split(/\s+/);
+
+let displayName = fullName;
+
+if (nameParts.length >= 2) {
+
+    const firstName = nameParts[0];
+
+    const lastName =
+        nameParts[nameParts.length - 1];
+
+    displayName =
+        `${firstName} ${lastName.charAt(0)}.`;
+
+}
+
+targetDay.students.push(displayName);
 
         }
 
@@ -330,22 +356,378 @@ async function testBackendConnection() {
 }
 
 
-document.addEventListener("DOMContentLoaded", () => {
+let selectedWeek = "current";
 
-    initialize();
 
-    testBackendConnection();
+// =====================================================
+// MDST - OPEN SIGNUP MODAL
+// =====================================================
 
-    document.querySelectorAll(".join-team").forEach(button => {
+function openSignupModal(button) {
 
-        button.addEventListener("click", () => {
+    const modal =
+        document.getElementById("signupModal");
 
-            alert(
-                "Join Team functionality will be connected to Google Sheets next."
+    const daySelect =
+        document.getElementById("signupDay");
+
+    const dateInput =
+        document.getElementById("signupDate");
+
+    const message =
+        document.getElementById("signupMessage");
+
+    selectedWeek =
+        button.dataset.week || "current";
+
+    const selectedDay =
+        button.dataset.day;
+
+    const selectedDate =
+        button.dataset.date;
+
+    daySelect.value = selectedDay;
+
+    dateInput.value = selectedDate;
+
+    message.textContent = "";
+
+    message.className = "signup-message";
+
+    modal.classList.add("show");
+
+}
+
+
+// =====================================================
+// MDST - CLOSE SIGNUP MODAL
+// =====================================================
+
+function closeSignupModal() {
+
+    const modal =
+        document.getElementById("signupModal");
+
+    modal.classList.remove("show");
+
+}
+
+
+// =====================================================
+// MDST - UPDATE DATE WHEN DAY CHANGES
+// =====================================================
+
+function updateSignupDate() {
+
+    const daySelect =
+        document.getElementById("signupDay");
+
+    const dateInput =
+        document.getElementById("signupDate");
+
+    const week =
+        selectedWeek === "current"
+            ? calendarData.currentWeek
+            : calendarData.nextWeek;
+
+    const selectedDay =
+        week.find(day =>
+            day.day === daySelect.value
+        );
+
+    if (selectedDay) {
+
+        dateInput.value =
+            selectedDay.date;
+
+    }
+
+}
+
+
+// =====================================================
+// MDST - SET UP SIGNUP FORM
+// =====================================================
+
+function setupSignupForm() {
+
+    const modal =
+        document.getElementById("signupModal");
+
+    const closeButton =
+        document.getElementById("closeSignupModal");
+
+    const daySelect =
+        document.getElementById("signupDay");
+
+    const form =
+        document.getElementById("signupForm");
+
+
+    // -----------------------------
+    // Join buttons
+    // -----------------------------
+
+    document
+        .querySelectorAll(".join-team")
+        .forEach(button => {
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    openSignupModal(button);
+
+                }
             );
 
         });
 
+
+    // -----------------------------
+    // Close button
+    // -----------------------------
+
+    closeButton.addEventListener(
+        "click",
+        closeSignupModal
+    );
+
+
+    // -----------------------------
+    // Close when clicking outside
+    // -----------------------------
+
+    modal.addEventListener(
+        "click",
+        event => {
+
+            if (event.target === modal) {
+
+                closeSignupModal();
+
+            }
+
+        }
+    );
+
+
+    // -----------------------------
+    // Update date
+    // -----------------------------
+
+    daySelect.addEventListener(
+        "change",
+        updateSignupDate
+    );
+
+
+    // -----------------------------
+    // Submit form
+    // -----------------------------
+
+    form.addEventListener(
+        "submit",
+        handleSignupSubmit
+    );
+
+}
+
+
+// =====================================================
+// MDST - SUBMIT SIGNUP
+// =====================================================
+
+async function handleSignupSubmit(event) {
+
+    event.preventDefault();
+
+    const form =
+        event.target;
+
+    const submitButton =
+        document.getElementById("submitSignup");
+
+    const message =
+        document.getElementById("signupMessage");
+
+    const fullName =
+        document
+            .getElementById("signupName")
+            .value
+            .trim();
+
+    const email =
+        document
+            .getElementById("signupEmail")
+            .value
+            .trim()
+            .toLowerCase();
+
+    const day =
+        document
+            .getElementById("signupDay")
+            .value;
+
+    const date =
+        document
+            .getElementById("signupDate")
+            .value;
+
+
+    // -----------------------------
+    // Basic validation
+    // -----------------------------
+
+    if (!fullName || !email || !day || !date) {
+
+        message.textContent =
+            "Please complete all fields.";
+
+        message.className =
+            "signup-message error";
+
+        return;
+
+    }
+
+
+    // -----------------------------
+    // Disable button
+    // -----------------------------
+
+    submitButton.disabled = true;
+
+    submitButton.textContent =
+        "⏳ Joining...";
+
+
+    try {
+
+        const response =
+            await fetch(API_URL, {
+
+                method: "POST",
+
+                const response =
+    await fetch(API_URL, {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type":
+                "application/x-www-form-urlencoded"
+        },
+
+        body:
+            new URLSearchParams({
+
+                fullName: fullName,
+
+                email: email,
+
+                date: date,
+
+                day: day
+
+            })
+
     });
 
-});
+            });
+
+
+        const data =
+            await response.json();
+
+
+        // -----------------------------
+        // Backend rejected signup
+        // -----------------------------
+
+        if (!data.success) {
+
+            message.textContent =
+                data.error ||
+                "We couldn't complete your signup.";
+
+            message.className =
+                "signup-message error";
+
+            return;
+
+        }
+
+
+        // -----------------------------
+        // Success
+        // -----------------------------
+
+        message.textContent =
+            "🎉 You're on the team!";
+
+        message.className =
+            "signup-message success";
+
+
+        form.reset();
+
+
+        // -----------------------------
+        // Reload calendar
+        // -----------------------------
+
+        setTimeout(
+            () => {
+
+                closeSignupModal();
+
+                window.location.reload();
+
+            },
+            1000
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "MDST signup error:",
+            error
+        );
+
+        message.textContent =
+            "We couldn't connect to the signup system. Please try again.";
+
+        message.className =
+            "signup-message error";
+
+
+    } finally {
+
+        submitButton.disabled = false;
+
+        submitButton.textContent =
+            "🚀 Join the Team";
+
+    }
+
+}
+
+
+// =====================================================
+// MDST - START APPLICATION
+// =====================================================
+
+document.addEventListener(
+    "DOMContentLoaded",
+    async () => {
+
+        await initialize();
+
+        testBackendConnection();
+
+        setupSignupForm();
+
+    }
+);
