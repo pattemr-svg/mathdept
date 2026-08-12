@@ -426,10 +426,10 @@ header h1{
 }
 
 .day-header {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr auto;
     align-items: center;
+    column-gap: 8px;
     margin-bottom: 16px;
 }
 
@@ -961,6 +961,8 @@ header h1{
 }
 
 .day-date {
+    grid-column: 1 / -1;
+
     position: relative;
     width: 100%;
 
@@ -968,14 +970,32 @@ header h1{
     align-items: center;
     justify-content: center;
 
-    margin-top: 10px;
-    margin-bottom: 4px;
+    margin-top: 8px;
+    margin-bottom: 8px;
 
     font-size: 1.15rem;
     font-weight: 800;
     line-height: 1.2;
     color: #4b5563;
     text-align: center;
+}
+
+.day-date::before,
+.day-date::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 28%;
+    height: 2px;
+    background: #d9dde5;
+}
+
+.day-date::before {
+    left: 0;
+}
+
+.day-date::after {
+    right: 0;
 }
 
 .day-date::before,
