@@ -90,6 +90,8 @@ header h1{
 
 .hero{
 
+    width:calc(100% - 40px);
+
     max-width:1000px;
 
     margin:40px auto;
@@ -102,15 +104,13 @@ header h1{
 
     box-shadow:var(--shadow);
 
-    display:flex;
+    display:grid;
 
-    flex-direction:row;
+    grid-template-columns:42% 58%;
 
     align-items:center;
 
-    justify-content:center;
-
-    gap:40px;
+    gap:20px;
 
 }
 /* ---------------- MDST Mascot ---------------- */
@@ -119,15 +119,13 @@ header h1{
 
 .mascot-container{
 
-    flex:0 0 42%;
-
     display:flex;
 
     justify-content:center;
 
     align-items:center;
 
-    min-height:300px;
+    min-width:0;
 
 }
 
@@ -180,9 +178,9 @@ header h1{
 }
 
 
-.hero-content {
+.hero-content{
 
-    flex:1;
+    min-width:0;
 
     text-align:center;
 
