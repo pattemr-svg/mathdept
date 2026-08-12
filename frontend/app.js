@@ -249,7 +249,34 @@ joinButton.dataset.week =
 
 }
 
+function setRandomMascot() {
 
+    const mascot =
+        document.getElementById("mdstMascot");
+
+    if (!mascot) {
+        return;
+    }
+
+    const mascots = [
+
+        "images/math-mascot-1.png",
+
+        "images/math-mascot-2.png",
+
+        "images/math-mascot-3.png"
+
+    ];
+
+    const randomIndex =
+        Math.floor(
+            Math.random() * mascots.length
+        );
+
+    mascot.src =
+        mascots[randomIndex];
+
+}
 async function initialize() {
 
     const signups = await loadSignups();
@@ -693,9 +720,11 @@ document.addEventListener(
 
         await initialize();
 
-        testBackendConnection();
+setRandomMascot();
 
-        setupSignupForm();
+testBackendConnection();
+
+setupSignupForm();
 
     }
 );
