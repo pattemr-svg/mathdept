@@ -253,7 +253,22 @@ else {
 const joinButton =
     template.querySelector(".join-team");
 
+const isFull =
+    day.students.length >= day.capacity;
+
+if (isFull) {
+
+    joinButton.textContent =
+        "🔒 Team Full";
+
+    joinButton.disabled = true;
+
+    joinButton.classList.add("team-full");
+
+}
+
 joinButton.dataset.date = day.date;
+
 joinButton.dataset.day = day.day;
 
 joinButton.dataset.week =
