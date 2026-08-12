@@ -189,17 +189,15 @@ function buildWeek(containerId, week){
             .cloneNode(true);
 
         template.querySelector(".day-name").textContent =
-            day.day;
-			
-		template.querySelector(".day-date").textContent =
+    day.day + " • " +
     new Date(day.date + "T00:00:00")
         .toLocaleDateString("en-US", {
             month: "short",
             day: "numeric"
         });
 
-        template.querySelector(".teacher-name").textContent =
-            day.teacher;
+template.querySelector(".teacher-name").textContent =
+    day.teacher;
 
         const capacityBadge =
     template.querySelector(".capacity-badge");
