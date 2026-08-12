@@ -188,8 +188,10 @@ function buildWeek(containerId, week){
             .content
             .cloneNode(true);
 
-        template.querySelector(".day-name").textContent =
-    day.day + " • " +
+    template.querySelector(".day-name").textContent =
+    day.day;
+	
+	template.querySelector(".day-date").textContent =
     new Date(day.date + "T00:00:00")
         .toLocaleDateString("en-US", {
             month: "short",

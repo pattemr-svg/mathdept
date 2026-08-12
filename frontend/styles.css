@@ -977,3 +977,11 @@ header h1{
     margin-bottom:8px;
 
 }
+
+.day-date {
+    font-size: .78rem;
+    font-weight: 700;
+    color: #6b7280;
+    margin-top: -8px;
+    margin-bottom: 8px;
+}
