@@ -422,23 +422,64 @@ function openSignupModal(button) {
         document.getElementById("signupMessage");
 
     selectedWeek =
-        button.dataset.week || "current";
+    button.dataset.week || "current";
 
-    const selectedDay =
-        button.dataset.day;
+const selectedDay =
+    button.dataset.day;
 
-    const selectedDate =
-        button.dataset.date;
+const selectedDate =
+    button.dataset.date;
 
-    daySelect.value = selectedDay;
 
-    dateInput.value = selectedDate;
+/*
+ * Disable days that are already full
+ */
 
-    message.textContent = "";
+const week =
+    selectedWeek === "current"
+        ? calendarData.currentWeek
+        : calendarData.nextWeek;
 
-    message.className = "signup-message";
+Array.from(daySelect.options).forEach(option => {
 
-    modal.classList.add("show");
+    const dayData =
+        week.find(day =>
+            day.day === option.value
+        );
+
+    if (!dayData) {
+        return;
+    }
+
+    const isFull =
+        dayData.students.length >= dayData.capacity;
+
+    option.disabled = isFull;
+
+    if (isFull) {
+
+        option.textContent =
+            `${dayData.day} — FULL`;
+
+    } else {
+
+        option.textContent =
+            dayData.day;
+
+    }
+
+});
+
+
+daySelect.value = selectedDay;
+
+dateInput.value = selectedDate;
+
+message.textContent = "";
+
+message.className = "signup-message";
+
+modal.classList.add("show");
 
 }
 

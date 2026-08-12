@@ -952,3 +952,14 @@ header h1{
     transform: none;
 
 }
+/* ---------------- Full Day Signup Option ---------------- */
+
+#signupDay option:disabled {
+
+    color:#d93025;
+
+    font-weight:700;
+
+    background:#fce8e6;
+
+}
