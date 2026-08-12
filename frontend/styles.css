@@ -963,3 +963,17 @@ header h1{
     background:#fce8e6;
 
 }
+
+.day-date{
+
+    font-size:.8rem;
+
+    font-weight:700;
+
+    color:#6b7280;
+
+    margin-top:-4px;
+
+    margin-bottom:8px;
+
+}
