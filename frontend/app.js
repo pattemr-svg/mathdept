@@ -200,22 +200,7 @@ function buildWeek(containerId, week){
 capacityBadge.textContent =
     `${day.students.length}/${day.capacity}`;
 
-const joinButton =
-    template.querySelector(".join-team");
 
-const isFull =
-    day.students.length >= day.capacity;
-
-if (isFull) {
-
-    joinButton.textContent =
-        "🔒 Team Full";
-
-    joinButton.disabled = true;
-
-    joinButton.classList.add("team-full");
-
-}
 
         const percent =
             (day.students.length/day.capacity)*100;
