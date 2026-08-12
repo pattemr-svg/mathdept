@@ -107,7 +107,11 @@ header h1{
 }
 /* ---------------- MDST Mascot ---------------- */
 
+/* ---------------- MDST Mascot ---------------- */
+
 .mascot-container {
+
+    flex:1;
 
     display:flex;
 
@@ -115,17 +119,15 @@ header h1{
 
     align-items:center;
 
-    height:180px;
-
-    margin-bottom:20px;
+    min-height:300px;
 
 }
 
 .mdst-mascot {
 
-    max-height:180px;
+    max-height:300px;
 
-    max-width:220px;
+    max-width:320px;
 
     width:auto;
 
@@ -133,9 +135,26 @@ header h1{
 
     object-fit:contain;
 
-    filter:drop-shadow(0 8px 8px rgba(0,0,0,.12));
+    filter:drop-shadow(0 10px 10px rgba(0,0,0,.14));
 
     transition:transform .25s ease;
+
+}
+
+.mdst-mascot:hover {
+
+    transform:translateY(-6px) rotate(-2deg);
+
+}
+
+
+.hero-content {
+
+    flex:1;
+
+    text-align:center;
+
+    padding:20px;
 
 }
 
@@ -296,9 +315,23 @@ header h1{
 
 .hero{
 
-    margin:20px;
+    max-width:1000px;
 
-    padding:30px;
+    margin:40px auto;
+
+    background:white;
+
+    padding:35px 45px;
+
+    border-radius:var(--radius);
+
+    box-shadow:var(--shadow);
+
+    display:flex;
+
+    align-items:center;
+
+    gap:35px;
 
 }
 
