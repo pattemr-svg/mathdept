@@ -982,6 +982,13 @@ header h1{
     font-size: .78rem;
     font-weight: 700;
     color: #6b7280;
-    margin-top: -8px;
-    margin-bottom: 8px;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    margin-top: 2px;
+}
+
+.day-header {
+    position: relative;
+    padding-bottom: 20px;
 }
