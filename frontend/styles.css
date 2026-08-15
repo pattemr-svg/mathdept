@@ -1214,3 +1214,191 @@ header h1{
     }
 
 }
+
+/* =====================================================
+   MDST - TEACHER ROSTER DAY SECTIONS
+===================================================== */
+
+.teacher-day-section {
+    margin-bottom: 24px;
+    border: 1px solid #e3e5ef;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #ffffff;
+}
+
+
+/* -----------------------------------------------------
+   DAY HEADER
+----------------------------------------------------- */
+
+.teacher-day-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 16px 20px;
+
+    background: #f1f0fa;
+
+    border-bottom: 1px solid #e1dfef;
+}
+
+
+.teacher-day-title {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+
+.teacher-day-title strong {
+    font-size: 20px;
+    color: #5543a6;
+}
+
+
+.teacher-day-title span {
+    font-size: 14px;
+    color: #666;
+    font-weight: 600;
+}
+
+
+/* -----------------------------------------------------
+   CAPACITY
+----------------------------------------------------- */
+
+.teacher-day-count {
+    min-width: 58px;
+
+    padding: 7px 12px;
+
+    text-align: center;
+
+    border-radius: 20px;
+
+    background: #31a354;
+
+    color: white;
+
+    font-weight: 700;
+    font-size: 14px;
+}
+
+
+.teacher-day-count.full {
+    background: #e52f2f;
+}
+
+
+/* -----------------------------------------------------
+   STUDENT ROW
+----------------------------------------------------- */
+
+.teacher-student {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 13px 20px;
+
+    border-bottom: 1px solid #eeeeee;
+}
+
+
+.teacher-student:last-child {
+    border-bottom: none;
+}
+
+
+.teacher-student-info {
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+}
+
+
+.teacher-student-info strong {
+    font-size: 16px;
+
+    color: #222;
+
+    min-width: 180px;
+}
+
+
+.teacher-student-date {
+    font-size: 14px;
+
+    color: #777;
+}
+
+
+/* -----------------------------------------------------
+   ACTIVE STATUS
+----------------------------------------------------- */
+
+.teacher-active-status {
+    background: #e8f6ed;
+
+    color: #218838;
+
+    padding: 5px 12px;
+
+    border-radius: 15px;
+
+    font-size: 13px;
+
+    font-weight: 700;
+}
+
+
+/* -----------------------------------------------------
+   EMPTY DAY
+----------------------------------------------------- */
+
+.teacher-empty {
+    padding: 18px 20px;
+
+    color: #888;
+
+    font-style: italic;
+
+    font-size: 14px;
+}
+
+
+/* -----------------------------------------------------
+   MOBILE
+----------------------------------------------------- */
+
+@media (max-width: 700px) {
+
+    .teacher-day-header {
+        padding: 14px;
+    }
+
+    .teacher-student {
+        padding: 13px 14px;
+    }
+
+    .teacher-student-info {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 3px;
+    }
+
+    .teacher-student-info strong {
+        min-width: 0;
+    }
+
+}
