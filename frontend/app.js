@@ -1026,6 +1026,10 @@ function setupTeacherManagement() {
 // MDST - LOAD TEACHER ROSTER
 // =====================================================
 
+// =====================================================
+// MDST - LOAD TEACHER ROSTER
+// =====================================================
+
 async function loadTeacherRoster() {
 
     const roster =
@@ -1038,16 +1042,11 @@ async function loadTeacherRoster() {
     roster.innerHTML =
         "<p>Loading roster...</p>";
 
-
     try {
 
         const signups =
             await loadSignups();
 
-
-        // -----------------------------------------
-        // Teacher / capacity information
-        // -----------------------------------------
 
         const dayInfo = {
 
@@ -1079,10 +1078,6 @@ async function loadTeacherRoster() {
         };
 
 
-        // -----------------------------------------
-        // Only active signups
-        // -----------------------------------------
-
         const activeSignups =
             signups.filter(
                 signup =>
@@ -1094,10 +1089,6 @@ async function loadTeacherRoster() {
 
         roster.innerHTML = "";
 
-
-        // -----------------------------------------
-        // Build each day
-        // -----------------------------------------
 
         Object.keys(dayInfo).forEach(day => {
 
@@ -1115,7 +1106,7 @@ async function loadTeacherRoster() {
 
 
             // -----------------------------------------
-            // Day section
+            // DAY SECTION
             // -----------------------------------------
 
             const daySection =
@@ -1126,7 +1117,7 @@ async function loadTeacherRoster() {
 
 
             // -----------------------------------------
-            // Day header
+            // DAY HEADER
             // -----------------------------------------
 
             const dayHeader =
@@ -1177,7 +1168,7 @@ async function loadTeacherRoster() {
 
 
             // -----------------------------------------
-            // Students
+            // NO STUDENTS
             // -----------------------------------------
 
             if (dayStudents.length === 0) {
@@ -1193,114 +1184,152 @@ async function loadTeacherRoster() {
 
                 daySection.appendChild(empty);
 
-            } else {
-
-                dayStudents.forEach(
-                    signup => {
-
-                        const student =
-                            document.createElement("div");
-
-                        student.className =
-                            "teacher-student";
+            }
 
 
-                        // Student name
+            // -----------------------------------------
+            // STUDENTS
+            // -----------------------------------------
 
-                        const name =
-                            document.createElement("strong");
+            dayStudents.forEach(
+                signup => {
 
-                        name.textContent =
-                            signup["Full Name"] ||
-                            "Unknown Student";
+                    const student =
+                        document.createElement("div");
 
-
-                        // Date
-
-                        const date =
-                            document.createElement("span");
-
-                        date.className =
-                            "teacher-student-date";
+                    student.className =
+                        "teacher-student";
 
 
-                        let displayDate =
-                            signup.Date || "";
+                    // Student information
+
+                    const infoArea =
+                        document.createElement("div");
+
+                    infoArea.className =
+                        "teacher-student-info";
 
 
-                        // Convert date to readable format
+                    const name =
+                        document.createElement("strong");
 
-                        if (displayDate) {
+                    name.textContent =
+                        signup["Full Name"] ||
+                        "Unknown Student";
 
-                            const parsedDate =
-                                new Date(displayDate);
 
-                            if (
-                                !isNaN(
-                                    parsedDate.getTime()
-                                )
-                            ) {
+                    const date =
+                        document.createElement("span");
 
-                                displayDate =
-                                    parsedDate.toLocaleDateString(
-                                        "en-US",
-                                        {
-                                            month: "short",
-                                            day: "numeric"
-                                        }
-                                    );
+                    date.className =
+                        "teacher-student-date";
 
-                            }
+
+                    let displayDate =
+                        signup.Date || "";
+
+                    if (displayDate) {
+
+                        const parsedDate =
+                            new Date(displayDate);
+
+                        if (
+                            !isNaN(
+                                parsedDate.getTime()
+                            )
+                        ) {
+
+                            displayDate =
+                                parsedDate.toLocaleDateString(
+                                    "en-US",
+                                    {
+                                        month: "short",
+                                        day: "numeric"
+                                    }
+                                );
 
                         }
 
-
-                        date.textContent =
-                            displayDate;
-
-
-                        // Student information
-
-                        const infoArea =
-                            document.createElement("div");
-
-                        infoArea.className =
-                            "teacher-student-info";
-
-                        infoArea.appendChild(name);
-
-                        infoArea.appendChild(date);
-
-
-                        // Status
-
-                        const status =
-                            document.createElement("span");
-
-                        status.className =
-                            "teacher-active-status";
-
-                        status.textContent =
-                            "Active";
-
-
-                        student.appendChild(
-                            infoArea
-                        );
-
-                        student.appendChild(
-                            status
-                        );
-
-
-                        daySection.appendChild(
-                            student
-                        );
-
                     }
-                );
 
-            }
+
+                    date.textContent =
+                        displayDate;
+
+
+                    infoArea.appendChild(name);
+
+                    infoArea.appendChild(date);
+
+
+                    // ---------------------------------
+                    // RIGHT SIDE
+                    // ---------------------------------
+
+                    const controls =
+                        document.createElement("div");
+
+                    controls.className =
+                        "teacher-student-controls";
+
+
+                    // Active badge
+
+                    const status =
+                        document.createElement("span");
+
+                    status.className =
+                        "teacher-active-status";
+
+                    status.textContent =
+                        "Active";
+
+
+                    // Cancel button
+
+                    const cancelButton =
+                        document.createElement("button");
+
+                    cancelButton.type =
+                        "button";
+
+                    cancelButton.className =
+                        "teacher-cancel-button";
+
+                    cancelButton.textContent =
+                        "Cancel";
+
+
+                    cancelButton.addEventListener(
+                        "click",
+                        () => {
+
+                            handleTeacherCancel(
+                                signup
+                            );
+
+                        }
+                    );
+
+
+                    controls.appendChild(status);
+
+                    controls.appendChild(
+                        cancelButton
+                    );
+
+
+                    student.appendChild(infoArea);
+
+                    student.appendChild(controls);
+
+
+                    daySection.appendChild(
+                        student
+                    );
+
+                }
+            );
 
 
             roster.appendChild(
@@ -1323,6 +1352,141 @@ async function loadTeacherRoster() {
                 Unable to load the teacher roster.
             </p>
             `;
+
+    }
+
+}
+
+// =====================================================
+// MDST - TEACHER CANCEL SIGNUP
+// =====================================================
+
+async function handleTeacherCancel(signup) {
+
+    const studentName =
+        signup["Full Name"] ||
+        "this student";
+
+    const day =
+        String(
+            signup.Day || ""
+        ).trim();
+
+
+    const confirmed =
+        window.confirm(
+            `Are you sure you want to cancel ${studentName}'s signup for ${day}?`
+        );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    // -----------------------------------------
+    // Convert date to yyyy-MM-dd
+    // -----------------------------------------
+
+    let date =
+        signup.Date || "";
+
+
+    const parsedDate =
+        new Date(date);
+
+
+    if (
+        !isNaN(
+            parsedDate.getTime()
+        )
+    ) {
+
+        date =
+            parsedDate
+                .toISOString()
+                .slice(0, 10);
+
+    }
+
+
+    try {
+
+        const response =
+            await fetch(API_URL, {
+
+                method: "POST",
+
+                headers: {
+
+                    "Content-Type":
+                        "text/plain;charset=utf-8"
+
+                },
+
+                body: JSON.stringify({
+
+                    action:
+                        "removeSignup",
+
+                    fullName:
+                        signup["Full Name"],
+
+                    email:
+                        signup.Email,
+
+                    day:
+                        day,
+
+                    date:
+                        date
+
+                })
+
+            });
+
+
+        const data =
+            await response.json();
+
+
+        if (!data.success) {
+
+            alert(
+                data.error ||
+                "The signup could not be cancelled."
+            );
+
+            return;
+
+        }
+
+
+        // -----------------------------------------
+        // Refresh calendar and teacher roster
+        // -----------------------------------------
+
+        await initialize();
+
+        await loadTeacherRoster();
+
+
+        alert(
+            `${studentName}'s signup has been cancelled.`
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Teacher cancellation error:",
+            error
+        );
+
+
+        alert(
+            "We couldn't connect to the signup system. Please try again."
+        );
 
     }
 

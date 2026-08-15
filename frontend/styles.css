@@ -1402,3 +1402,59 @@ header h1{
     }
 
 }
+
+/* =====================================================
+   MDST - TEACHER CANCEL BUTTON
+===================================================== */
+
+.teacher-student-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+.teacher-cancel-button {
+    border: none;
+
+    background: #e52f2f;
+
+    color: white;
+
+    padding: 6px 12px;
+
+    border-radius: 8px;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+
+.teacher-cancel-button:hover {
+    background: #c92525;
+
+    transform: translateY(-1px);
+}
+
+
+.teacher-cancel-button:active {
+    transform: translateY(0);
+}
+
+
+@media (max-width: 700px) {
+
+    .teacher-student-controls {
+        flex-direction: column;
+
+        align-items: flex-end;
+
+        gap: 6px;
+    }
+
+}
