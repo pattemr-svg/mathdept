@@ -996,6 +996,10 @@ async function handleCancelSignup() {
 // MDST - TEACHER MANAGEMENT
 // =====================================================
 
+// =====================================================
+// MDST - TEACHER MANAGEMENT BUTTON
+// =====================================================
+
 function setupTeacherManagement() {
 
     const button =
@@ -1003,43 +1007,60 @@ function setupTeacherManagement() {
             "teacherManagementButton"
         );
 
-    const panel =
+    const accessScreen =
         document.getElementById(
-            "teacherManagementPanel"
+            "teacherAccessScreen"
         );
 
-    const closeButton =
+    const input =
         document.getElementById(
-            "closeTeacherManagement"
+            "teacherAccessCode"
         );
 
 
-    if (!button || !panel || !closeButton) {
+    if (!button) {
+
+        console.error(
+            "MDST: Teacher Management button not found."
+        );
+
         return;
+
     }
 
 
-    // Open teacher panel
+    if (!accessScreen) {
+
+        console.error(
+            "MDST: Teacher Access screen not found."
+        );
+
+        return;
+
+    }
+
 
     button.addEventListener(
         "click",
         () => {
 
-            panel.classList.add("show");
+            // Show teacher access screen
+            accessScreen.style.display = "flex";
 
-            loadTeacherRoster();
+            // Clear previous code/message
+            if (input) {
+                input.value = "";
+                input.focus();
+            }
 
-        }
-    );
+            const message =
+                document.getElementById(
+                    "teacherAccessMessage"
+                );
 
-
-    // Close teacher panel
-
-    closeButton.addEventListener(
-        "click",
-        () => {
-
-            panel.classList.remove("show");
+            if (message) {
+                message.textContent = "";
+            }
 
         }
     );
