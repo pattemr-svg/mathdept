@@ -1000,11 +1000,20 @@ async function handleCancelSignup() {
 // MDST - TEACHER MANAGEMENT BUTTON
 // =====================================================
 
+// =====================================================
+// MDST - TEACHER MANAGEMENT BUTTON
+// =====================================================
+
 function setupTeacherManagement() {
 
     const button =
         document.getElementById(
             "teacherManagementButton"
+        );
+
+    const panel =
+        document.getElementById(
+            "teacherManagementPanel"
         );
 
     const accessScreen =
@@ -1017,11 +1026,16 @@ function setupTeacherManagement() {
             "teacherAccessCode"
         );
 
+    const closeButton =
+        document.getElementById(
+            "closeTeacherManagement"
+        );
 
-    if (!button) {
+
+    if (!button || !panel || !accessScreen) {
 
         console.error(
-            "MDST: Teacher Management button not found."
+            "MDST: Teacher Management elements not found."
         );
 
         return;
@@ -1029,41 +1043,64 @@ function setupTeacherManagement() {
     }
 
 
-    if (!accessScreen) {
-
-        console.error(
-            "MDST: Teacher Access screen not found."
-        );
-
-        return;
-
-    }
-
+    // -----------------------------------------
+    // OPEN TEACHER MANAGEMENT
+    // -----------------------------------------
 
     button.addEventListener(
         "click",
         () => {
 
-            // Show teacher access screen
-            accessScreen.style.display = "flex";
+            // Show the parent panel
+            panel.classList.add("show");
 
-            // Clear previous code/message
+            // Show Teacher Access screen
+            accessScreen.style.display = "block";
+
+            // Clear previous code
             if (input) {
+
                 input.value = "";
-                input.focus();
+
+                setTimeout(
+                    () => input.focus(),
+                    50
+                );
+
             }
 
+            // Clear previous message
             const message =
                 document.getElementById(
                     "teacherAccessMessage"
                 );
 
             if (message) {
+
                 message.textContent = "";
+
             }
 
         }
     );
+
+
+    // -----------------------------------------
+    // CLOSE TEACHER MANAGEMENT
+    // -----------------------------------------
+
+    if (closeButton) {
+
+        closeButton.addEventListener(
+            "click",
+            () => {
+
+                panel.classList.remove("show");
+
+            }
+        );
+
+    }
 
 }
 
