@@ -1502,15 +1502,15 @@ document.addEventListener(
 
         await initialize();
 
-setRandomMascot();
+        setRandomMascot();
 
-testBackendConnection();
+        testBackendConnection();
 
-setupSignupForm();
+        setupSignupForm();
 
-setupTeacherManagement();
+        setupTeacherManagement();
 
-setupTeacherAccess();
+        setupTeacherAccess();
 
     }
 );
