@@ -1690,28 +1690,15 @@ function setupTeacherAccess() {
 
 document.addEventListener(
     "DOMContentLoaded",
-    () => {
+    async () => {
 
-        console.log("MDST: Building calendar immediately...");
-        console.log("MDST calendar data:", calendarData);
-
-        buildWeek(
-            "currentWeek",
-            calendarData.currentWeek
-        );
-
-        buildWeek(
-            "nextWeek",
-            calendarData.nextWeek
-        );
+        await initialize();
 
         setRandomMascot();
 
         setupSignupForm();
 
         setupTeacherAccess();
-
-        initialize();
 
     }
 );
