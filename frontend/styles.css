@@ -1015,3 +1015,202 @@ header h1{
 .day-date::after {
     right: 0;
 }
+
+/* =====================================================
+   MDST - TEACHER MANAGEMENT
+===================================================== */
+
+.teacher-management-link {
+    text-align: center;
+    margin: 40px 0 25px;
+}
+
+#teacherManagementButton {
+    background: #5543a6;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 22px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+#teacherManagementButton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
+}
+
+
+/* -----------------------------------------------------
+   PANEL
+----------------------------------------------------- */
+
+.teacher-management-panel {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+
+    background: rgba(20, 20, 40, 0.55);
+
+    padding: 30px;
+    overflow-y: auto;
+}
+
+.teacher-management-panel.show {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+
+/* -----------------------------------------------------
+   PANEL CONTENT
+----------------------------------------------------- */
+
+.teacher-management-content {
+    position: relative;
+
+    width: min(950px, 100%);
+
+    margin: 30px auto;
+
+    background: white;
+
+    border-radius: 18px;
+
+    padding: 35px;
+
+    box-shadow:
+        0 15px 45px rgba(0, 0, 0, 0.25);
+}
+
+
+/* -----------------------------------------------------
+   CLOSE BUTTON
+----------------------------------------------------- */
+
+.teacher-management-close {
+    position: absolute;
+
+    top: 15px;
+    right: 18px;
+
+    width: 40px;
+    height: 40px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: #eeeeee;
+
+    color: #444;
+
+    font-size: 28px;
+    line-height: 1;
+
+    cursor: pointer;
+}
+
+.teacher-management-close:hover {
+    background: #dddddd;
+}
+
+
+/* -----------------------------------------------------
+   HEADER
+----------------------------------------------------- */
+
+.teacher-management-header {
+    text-align: center;
+
+    margin-bottom: 30px;
+
+    border-bottom: 1px solid #eeeeee;
+
+    padding-bottom: 25px;
+}
+
+.teacher-management-icon {
+    font-size: 42px;
+    margin-bottom: 5px;
+}
+
+.teacher-management-header h2 {
+    margin: 0;
+
+    color: #5543a6;
+
+    font-size: 30px;
+}
+
+.teacher-management-header p {
+    margin-top: 8px;
+
+    color: #666;
+
+    font-size: 15px;
+}
+
+
+/* -----------------------------------------------------
+   ROSTER
+----------------------------------------------------- */
+
+.teacher-roster-row {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 15px 18px;
+
+    margin-bottom: 10px;
+
+    background: #f5f6fb;
+
+    border-radius: 12px;
+
+    border-left: 5px solid #5543a6;
+}
+
+.teacher-roster-row strong {
+    color: #222;
+
+    font-size: 17px;
+}
+
+.teacher-roster-row span {
+    color: #666;
+
+    font-size: 14px;
+}
+
+
+/* -----------------------------------------------------
+   MOBILE
+----------------------------------------------------- */
+
+@media (max-width: 700px) {
+
+    .teacher-management-panel {
+        padding: 10px;
+    }
+
+    .teacher-management-content {
+        padding: 25px 18px;
+        margin: 10px auto;
+    }
+
+    .teacher-roster-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+
+}
