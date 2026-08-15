@@ -303,6 +303,14 @@ function setRandomMascot() {
 }
 async function initialize() {
 
+    // Clear existing student data before reloading
+    [
+        ...calendarData.currentWeek,
+        ...calendarData.nextWeek
+    ].forEach(day => {
+        day.students = [];
+    });
+
     const signups = await loadSignups();
 
     console.log(
