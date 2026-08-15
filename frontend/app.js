@@ -1493,8 +1493,188 @@ async function handleTeacherCancel(signup) {
 }
 
 // =====================================================
+// MDST - TEACHER ACCESS
+// =====================================================
+
+function setupTeacherAccess() {
+
+    const submitButton =
+        document.getElementById("teacherAccessSubmit");
+
+    const input =
+        document.getElementById("teacherAccessCode");
+
+    const accessScreen =
+        document.getElementById("teacherAccessScreen");
+
+    const dashboard =
+        document.getElementById("teacherDashboard");
+
+    const message =
+        document.getElementById("teacherAccessMessage");
+
+
+    if (
+        !submitButton ||
+        !input ||
+        !accessScreen ||
+        !dashboard ||
+        !message
+    ) {
+
+        console.error(
+            "MDST: Teacher access elements not found."
+        );
+
+        return;
+    }
+
+
+    submitButton.addEventListener(
+        "click",
+        verifyTeacherCode
+    );
+
+
+    input.addEventListener(
+        "keydown",
+        event => {
+
+            if (event.key === "Enter") {
+
+                verifyTeacherCode();
+
+            }
+
+        }
+    );
+
+
+    async function verifyTeacherCode() {
+
+        const code =
+            input.value.trim();
+
+
+        message.textContent = "";
+
+
+        if (!code) {
+
+            message.textContent =
+                "Please enter the teacher access code.";
+
+            return;
+
+        }
+
+
+        submitButton.disabled = true;
+
+        submitButton.textContent =
+            "Checking...";
+
+
+        try {
+
+            const response =
+                await fetch(
+                    API_URL,
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "text/plain;charset=utf-8"
+                        },
+
+                        body: JSON.stringify({
+
+                            action:
+                                "verifyTeacher",
+
+                            code:
+                                code
+
+                        })
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            console.log(
+                "MDST Teacher Access Response:",
+                data
+            );
+
+
+            if (!data.success) {
+
+                message.textContent =
+                    data.error ||
+                    "Incorrect teacher access code.";
+
+                input.value = "";
+
+                input.focus();
+
+                return;
+
+            }
+
+
+            // -----------------------------------------
+            // ACCESS GRANTED
+            // -----------------------------------------
+
+            accessScreen.style.display =
+                "none";
+
+            dashboard.style.display =
+                "block";
+
+
+            if (
+                typeof loadTeacherRoster ===
+                "function"
+            ) {
+
+                await loadTeacherRoster();
+
+            }
+
+
+        } catch (error) {
+
+            console.error(
+                "MDST Teacher Access Error:",
+                error
+            );
+
+
+            message.textContent =
+                "Unable to verify access. Please try again.";
+
+        } finally {
+
+            submitButton.disabled = false;
+
+            submitButton.textContent =
+                "Enter";
+
+        }
+
+    }
+
+}
+
+// =====================================================
 // MDST - START APPLICATION
 // =====================================================
+
 
 document.addEventListener(
     "DOMContentLoaded",
@@ -1508,9 +1688,8 @@ document.addEventListener(
 
         setupSignupForm();
 
-        setupTeacherManagement();
-
         setupTeacherAccess();
 
     }
 );
+
