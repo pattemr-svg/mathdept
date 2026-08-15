@@ -1510,5 +1510,7 @@ setupSignupForm();
 
 setupTeacherManagement();
 
+setupTeacherAccess();
+
     }
 );

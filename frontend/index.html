@@ -204,6 +204,15 @@
     class="teacher-management-panel"
 >
 
+    <!-- =====================================================
+     MDST TEACHER MANAGEMENT PANEL
+===================================================== -->
+
+<div
+    id="teacherManagementPanel"
+    class="teacher-management-panel"
+>
+
     <div class="teacher-management-content">
 
         <button
@@ -214,27 +223,90 @@
             ×
         </button>
 
-        <div class="teacher-management-header">
+
+        <!-- =============================================
+             TEACHER ACCESS SCREEN
+        ============================================== -->
+
+        <div
+            id="teacherAccessScreen"
+            class="teacher-access-screen"
+        >
 
             <div class="teacher-management-icon">
                 👨‍🏫
             </div>
 
-            <h2>Teacher Management</h2>
+            <h2>Teacher Access</h2>
 
             <p>
-                Manage the Math Department Service Team roster.
+                Enter the teacher access code to continue.
             </p>
+
+
+            <div class="teacher-access-form">
+
+                <input
+                    type="password"
+                    id="teacherAccessCode"
+                    placeholder="Teacher Access Code"
+                    autocomplete="off"
+                >
+
+                <button
+                    type="button"
+                    id="teacherAccessSubmit"
+                >
+                    Enter
+                </button>
+
+            </div>
+
+
+            <div
+                id="teacherAccessMessage"
+                class="teacher-access-message"
+            ></div>
 
         </div>
 
-        <div id="teacherRoster">
 
-            <!-- JavaScript will build the roster here -->
+        <!-- =============================================
+             TEACHER DASHBOARD
+        ============================================== -->
+
+        <div
+            id="teacherDashboard"
+            class="teacher-dashboard"
+            style="display: none;"
+        >
+
+            <div class="teacher-management-header">
+
+                <div class="teacher-management-icon">
+                    👨‍🏫
+                </div>
+
+                <h2>Teacher Management</h2>
+
+                <p>
+                    Manage the Math Department Service Team roster.
+                </p>
+
+            </div>
+
+
+            <div id="teacherRoster">
+
+                <!-- JavaScript builds roster here -->
+
+            </div>
 
         </div>
 
     </div>
+
+</div>
 
 </div>
 <footer>
