@@ -1684,21 +1684,34 @@ function setupTeacherAccess() {
 // =====================================================
 
 
+// =====================================================
+// MDST - START APPLICATION
+// =====================================================
+
 document.addEventListener(
     "DOMContentLoaded",
-    async () => {
+    () => {
 
-        await initialize();
+        console.log("MDST: Building calendar immediately...");
+        console.log("MDST calendar data:", calendarData);
+
+        buildWeek(
+            "currentWeek",
+            calendarData.currentWeek
+        );
+
+        buildWeek(
+            "nextWeek",
+            calendarData.nextWeek
+        );
 
         setRandomMascot();
-
-        testBackendConnection();
 
         setupSignupForm();
 
         setupTeacherAccess();
-		
-		setupTeacherManagement();
+
+        initialize();
 
     }
 );
