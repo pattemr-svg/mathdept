@@ -622,7 +622,17 @@ function setupSignupForm() {
         "submit",
         handleSignupSubmit
     );
+const cancelButton =
+    document.getElementById("cancelSignup");
 
+if (cancelButton) {
+
+    cancelButton.addEventListener(
+        "click",
+        handleCancelSignup
+    );
+
+}
 }
 
 
@@ -770,6 +780,184 @@ async function handleSignupSubmit(event) {
 
         submitButton.textContent =
             "🚀 Join the Team";
+
+    }
+
+}
+
+// =====================================================
+// MDST - CANCEL SIGNUP
+// =====================================================
+
+async function handleCancelSignup() {
+
+    const message =
+        document.getElementById("signupMessage");
+
+    const fullName =
+        document
+            .getElementById("signupName")
+            .value
+            .trim();
+
+    const email =
+        document
+            .getElementById("signupEmail")
+            .value
+            .trim()
+            .toLowerCase();
+
+    const day =
+        document
+            .getElementById("signupDay")
+            .value;
+
+    const date =
+        document
+            .getElementById("signupDate")
+            .value;
+
+
+    // -----------------------------
+    // Validate
+    // -----------------------------
+
+    if (
+        !fullName ||
+        !email ||
+        !day ||
+        !date
+    ) {
+
+        message.textContent =
+            "Please enter your name and email first.";
+
+        message.className =
+            "signup-message error";
+
+        return;
+
+    }
+
+
+    // -----------------------------
+    // Confirm cancellation
+    // -----------------------------
+
+    const confirmed =
+        window.confirm(
+            `Are you sure you want to cancel your signup for ${day}?`
+        );
+
+    if (!confirmed) {
+
+        return;
+
+    }
+
+
+    const cancelButton =
+        document.getElementById("cancelSignup");
+
+
+    cancelButton.disabled = true;
+
+    cancelButton.textContent =
+        "⏳ Cancelling...";
+
+
+    try {
+
+        const response =
+            await fetch(API_URL, {
+
+                method: "POST",
+
+                headers: {
+
+                    "Content-Type":
+                        "text/plain;charset=utf-8"
+
+                },
+
+                body: JSON.stringify({
+
+                    action: "removeSignup",
+
+                    fullName: fullName,
+
+                    email: email,
+
+                    day: day,
+
+                    date: date
+
+                })
+
+            });
+
+
+        const data =
+            await response.json();
+
+
+        if (!data.success) {
+
+            message.textContent =
+                data.error ||
+                "We couldn't cancel your signup.";
+
+            message.className =
+                "signup-message error";
+
+            return;
+
+        }
+
+
+        // -----------------------------
+        // Success
+        // -----------------------------
+
+        message.textContent =
+            "✅ Your signup has been cancelled.";
+
+        message.className =
+            "signup-message success";
+
+
+        setTimeout(
+            () => {
+
+                closeSignupModal();
+
+                window.location.reload();
+
+            },
+            1000
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "MDST cancellation error:",
+            error
+        );
+
+        message.textContent =
+            "We couldn't connect to the signup system. Please try again.";
+
+        message.className =
+            "signup-message error";
+
+
+    } finally {
+
+        cancelButton.disabled = false;
+
+        cancelButton.textContent =
+            "Cancel My Signup";
 
     }
 
