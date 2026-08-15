@@ -964,6 +964,159 @@ async function handleCancelSignup() {
 }
 
 // =====================================================
+// MDST - TEACHER MANAGEMENT
+// =====================================================
+
+function setupTeacherManagement() {
+
+    const button =
+        document.getElementById(
+            "teacherManagementButton"
+        );
+
+    const panel =
+        document.getElementById(
+            "teacherManagementPanel"
+        );
+
+    const closeButton =
+        document.getElementById(
+            "closeTeacherManagement"
+        );
+
+
+    if (!button || !panel || !closeButton) {
+        return;
+    }
+
+
+    // Open teacher panel
+
+    button.addEventListener(
+        "click",
+        () => {
+
+            panel.classList.add("show");
+
+            loadTeacherRoster();
+
+        }
+    );
+
+
+    // Close teacher panel
+
+    closeButton.addEventListener(
+        "click",
+        () => {
+
+            panel.classList.remove("show");
+
+        }
+    );
+
+}
+
+
+// =====================================================
+// MDST - LOAD TEACHER ROSTER
+// =====================================================
+
+async function loadTeacherRoster() {
+
+    const roster =
+        document.getElementById(
+            "teacherRoster"
+        );
+
+
+    if (!roster) {
+        return;
+    }
+
+
+    roster.innerHTML =
+        "<p>Loading roster...</p>";
+
+
+    try {
+
+        const signups =
+            await loadSignups();
+
+
+        const activeSignups =
+            signups.filter(
+                signup =>
+                    String(
+                        signup.Status || ""
+                    ).toLowerCase() === "active"
+            );
+
+
+        if (activeSignups.length === 0) {
+
+            roster.innerHTML =
+                "<p>No active signups.</p>";
+
+            return;
+
+        }
+
+
+        roster.innerHTML = "";
+
+
+        activeSignups.forEach(
+            signup => {
+
+                const row =
+                    document.createElement("div");
+
+                row.className =
+                    "teacher-roster-row";
+
+
+                const name =
+                    document.createElement("strong");
+
+                name.textContent =
+                    signup["Full Name"] ||
+                    "Unknown Student";
+
+
+                const details =
+                    document.createElement("span");
+
+                details.textContent =
+                    `${signup.Day} • ${signup.Date}`;
+
+
+                row.appendChild(name);
+
+                row.appendChild(details);
+
+                roster.appendChild(row);
+
+            }
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Teacher roster error:",
+            error
+        );
+
+        roster.innerHTML =
+            "<p>Unable to load the roster.</p>";
+
+    }
+
+}
+
+// =====================================================
 // MDST - START APPLICATION
 // =====================================================
 
@@ -978,6 +1131,8 @@ setRandomMascot();
 testBackendConnection();
 
 setupSignupForm();
+
+setupTeacherManagement();
 
     }
 );
