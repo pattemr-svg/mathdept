@@ -1689,6 +1689,8 @@ document.addEventListener(
         setupSignupForm();
 
         setupTeacherAccess();
+		
+		setupTeacherManagement();
 
     }
 );
