@@ -1022,18 +1022,18 @@ function setupTeacherManagement() {
 // MDST - LOAD TEACHER ROSTER
 // =====================================================
 
+// =====================================================
+// MDST - LOAD TEACHER ROSTER
+// =====================================================
+
 async function loadTeacherRoster() {
 
     const roster =
-        document.getElementById(
-            "teacherRoster"
-        );
-
+        document.getElementById("teacherRoster");
 
     if (!roster) {
         return;
     }
-
 
     roster.innerHTML =
         "<p>Loading roster...</p>";
@@ -1045,6 +1045,44 @@ async function loadTeacherRoster() {
             await loadSignups();
 
 
+        // -----------------------------------------
+        // Teacher / capacity information
+        // -----------------------------------------
+
+        const dayInfo = {
+
+            Monday: {
+                teacher: "Mr. Patterson",
+                capacity: 5
+            },
+
+            Tuesday: {
+                teacher: "Mrs. Smith",
+                capacity: 5
+            },
+
+            Wednesday: {
+                teacher: "Mr. Johnson",
+                capacity: 3
+            },
+
+            Thursday: {
+                teacher: "Mrs. Brown",
+                capacity: 5
+            },
+
+            Friday: {
+                teacher: "Mr. Davis",
+                capacity: 5
+            }
+
+        };
+
+
+        // -----------------------------------------
+        // Only active signups
+        // -----------------------------------------
+
         const activeSignups =
             signups.filter(
                 signup =>
@@ -1054,52 +1092,222 @@ async function loadTeacherRoster() {
             );
 
 
-        if (activeSignups.length === 0) {
-
-            roster.innerHTML =
-                "<p>No active signups.</p>";
-
-            return;
-
-        }
-
-
         roster.innerHTML = "";
 
 
-        activeSignups.forEach(
-            signup => {
+        // -----------------------------------------
+        // Build each day
+        // -----------------------------------------
 
-                const row =
-                    document.createElement("div");
+        Object.keys(dayInfo).forEach(day => {
 
-                row.className =
-                    "teacher-roster-row";
-
-
-                const name =
-                    document.createElement("strong");
-
-                name.textContent =
-                    signup["Full Name"] ||
-                    "Unknown Student";
+            const info =
+                dayInfo[day];
 
 
-                const details =
-                    document.createElement("span");
+            const dayStudents =
+                activeSignups.filter(
+                    signup =>
+                        String(
+                            signup.Day || ""
+                        ).trim() === day
+                );
 
-                details.textContent =
-                    `${signup.Day} • ${signup.Date}`;
+
+            // -----------------------------------------
+            // Day section
+            // -----------------------------------------
+
+            const daySection =
+                document.createElement("div");
+
+            daySection.className =
+                "teacher-day-section";
 
 
-                row.appendChild(name);
+            // -----------------------------------------
+            // Day header
+            // -----------------------------------------
 
-                row.appendChild(details);
+            const dayHeader =
+                document.createElement("div");
 
-                roster.appendChild(row);
+            dayHeader.className =
+                "teacher-day-header";
+
+
+            const title =
+                document.createElement("div");
+
+            title.className =
+                "teacher-day-title";
+
+            title.innerHTML =
+                `
+                <strong>${day}</strong>
+                <span>${info.teacher}</span>
+                `;
+
+
+            const count =
+                document.createElement("div");
+
+            count.className =
+                "teacher-day-count";
+
+            count.textContent =
+                `${dayStudents.length}/${info.capacity}`;
+
+
+            if (
+                dayStudents.length >=
+                info.capacity
+            ) {
+
+                count.classList.add("full");
 
             }
-        );
+
+
+            dayHeader.appendChild(title);
+
+            dayHeader.appendChild(count);
+
+            daySection.appendChild(dayHeader);
+
+
+            // -----------------------------------------
+            // Students
+            // -----------------------------------------
+
+            if (dayStudents.length === 0) {
+
+                const empty =
+                    document.createElement("div");
+
+                empty.className =
+                    "teacher-empty";
+
+                empty.textContent =
+                    "No students signed up.";
+
+                daySection.appendChild(empty);
+
+            } else {
+
+                dayStudents.forEach(
+                    signup => {
+
+                        const student =
+                            document.createElement("div");
+
+                        student.className =
+                            "teacher-student";
+
+
+                        // Student name
+
+                        const name =
+                            document.createElement("strong");
+
+                        name.textContent =
+                            signup["Full Name"] ||
+                            "Unknown Student";
+
+
+                        // Date
+
+                        const date =
+                            document.createElement("span");
+
+                        date.className =
+                            "teacher-student-date";
+
+
+                        let displayDate =
+                            signup.Date || "";
+
+
+                        // Convert date to readable format
+
+                        if (displayDate) {
+
+                            const parsedDate =
+                                new Date(displayDate);
+
+                            if (
+                                !isNaN(
+                                    parsedDate.getTime()
+                                )
+                            ) {
+
+                                displayDate =
+                                    parsedDate.toLocaleDateString(
+                                        "en-US",
+                                        {
+                                            month: "short",
+                                            day: "numeric"
+                                        }
+                                    );
+
+                            }
+
+                        }
+
+
+                        date.textContent =
+                            displayDate;
+
+
+                        // Student information
+
+                        const infoArea =
+                            document.createElement("div");
+
+                        infoArea.className =
+                            "teacher-student-info";
+
+                        infoArea.appendChild(name);
+
+                        infoArea.appendChild(date);
+
+
+                        // Status
+
+                        const status =
+                            document.createElement("span");
+
+                        status.className =
+                            "teacher-active-status";
+
+                        status.textContent =
+                            "Active";
+
+
+                        student.appendChild(
+                            infoArea
+                        );
+
+                        student.appendChild(
+                            status
+                        );
+
+
+                        daySection.appendChild(
+                            student
+                        );
+
+                    }
+                );
+
+            }
+
+
+            roster.appendChild(
+                daySection
+            );
+
+        });
 
 
     } catch (error) {
@@ -1110,7 +1318,11 @@ async function loadTeacherRoster() {
         );
 
         roster.innerHTML =
-            "<p>Unable to load the roster.</p>";
+            `
+            <p>
+                Unable to load the teacher roster.
+            </p>
+            `;
 
     }
 
