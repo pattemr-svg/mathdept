@@ -139,17 +139,38 @@ const calendarData = {
 };
 
 
-function createAvatar(name){
+function createAvatar(name) {
 
-    const parts = name.split(" ");
+    const safeName = String(name || "").trim();
 
-    const initials =
-        parts[0].charAt(0) +
-        parts[1].charAt(0);
+    if (!safeName) {
+        return document.createElement("div");
+    }
 
-    const avatar = document.createElement("div");
+    const parts = safeName.split(/\s+/);
+
+    let initials;
+
+    if (parts.length >= 2) {
+
+        initials =
+            parts[0].charAt(0) +
+            parts[parts.length - 1].charAt(0);
+
+    } else {
+
+        initials =
+            parts[0].charAt(0);
+
+    }
+
+    const avatar =
+        document.createElement("div");
+
     avatar.className = "avatar";
-    avatar.textContent = initials;
+
+    avatar.textContent =
+        initials.toUpperCase();
 
     return avatar;
 
@@ -251,9 +272,9 @@ const isFull =
 if (isFull) {
 
     joinButton.textContent =
-        "🔒 Team Full";
+        "🔒 Team Full — Manage Signup";
 
-    joinButton.disabled = true;
+    joinButton.disabled = false;
 
     joinButton.classList.add("team-full");
 
